@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Doe - Software Developer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --border: #e2e8f0;
+            --shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary: #34d399;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --border: #334155;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] header {
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* About */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .about-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+
+        .skill-tag {
+            background: var(--bg-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            height: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .project-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item i {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-family: inherit;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero {
+                text-align: center;
+                flex-direction: column;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">JD</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content fade-in">
+            <h1>Hi, I'm <span>John Doe</span></h1>
+            <p>Full Stack Software Developer crafting scalable web applications with modern technologies. Passionate about clean code, performance, and creating exceptional user experiences.</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">
+                    <i class="fas fa-eye"></i>
+                    View Projects
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i>
+                    Get In Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="fade-in">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" alt="John Doe">
+            </div>
+            <div class="about-text">
+                <h3>Software Developer with 5+ years experience</h3>
+                <p>I specialize in building scalable web applications using modern JavaScript frameworks and cloud technologies. My focus is on writing clean, maintainable code that delivers real business value.</p>
+                <p>Currently working with React, Node.js, TypeScript, and AWS. Always learning and exploring new technologies to build better solutions.</p>
+                <div class="skills">
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">TypeScript</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">AWS</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">MongoDB</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="fade-in">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card fade-in">
+                <h3>E-Commerce Platform</h3>
+                <div class="project-tech">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">MongoDB</span>
+                </div>
+                <p>Full-stack e-commerce solution with real-time inventory management, payment integration, and advanced admin dashboard.</p>
+                <div style="margin-top: 1.5rem;">
+                    <a href="#" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.75rem 1.5rem;">Live Demo</a>
+                    <a href="#" class="btn btn-secondary" style="font-size: 0.9rem; padding: 0.75rem 1.5rem; margin-left: 0.5rem;">Code</a>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <h3>Task Management App</h3>
+                <div class="project-tech">
+                    <span class="tech-tag">Next.js</span>
+                    <span class="tech-tag">Prisma</span>
+                    <span class="tech-tag">Tailwind</span>
+                </div>
+                <p>Collaborative task management application with drag & drop interface, real-time updates, and team collaboration features.</p>
+                <div style="margin-top: 1.5rem;">
+                    <a href="#" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.75rem 1.5rem;">Live Demo</a>
+                    <a href="#" class="btn btn-secondary" style="font-size: 0.9rem; padding: 0.75rem 1.5rem; margin-left: 0.5rem;">Code</a>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <h3>AI Chatbot Dashboard</h3>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">FastAPI</span>
+                    <span class="tech-tag">React</span>
+                </div>
+                <p>Analytics dashboard for AI chatbot platform with real-time metrics, user behavior analysis, and performance monitoring.</p>
+                <div style="margin-top: 1.5rem;">
+                    <a href="#" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.75rem 1.5rem;">Live Demo</a>
+                    <a href="#" class="btn btn-secondary" style="font-size: 0.9rem; padding: 0.75rem 1.5rem; margin-left: 0.5rem;">Code</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="fade-in">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p>john.doe@email.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>Location</h4>
+                        <p>San Francisco, CA</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h4>Availability</h4>
+                        <p>Mon - Fri / 9AM - 6PM</p>
+                    </div>
+                </div>
+            </div>
